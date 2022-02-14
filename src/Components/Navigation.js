@@ -7,7 +7,7 @@ const Navigation = () => {
     <Navbar collapseOnSelect expand="lg" bg = "primary" variant = "dark">
     <Container>
     <Link to="/">
-      <Navbar.Brand>
+      <Navbar.Brand className="logo">
         Uconnect
       </Navbar.Brand>
     </Link>

@@ -18,6 +18,7 @@ const Navigation = () => {
             <Link to="/signin">Signin</Link>
             <Link to="/signup">Signup</Link>
             <Link to="/profile">Profile</Link>
+            <Link to="/create">Create Post</Link>
           </Nav>
         </ul>
       </Navbar.Collapse>

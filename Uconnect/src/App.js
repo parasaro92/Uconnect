@@ -7,8 +7,6 @@ import Signup from './Components/pages/Signup';
 import Profile from './Components/pages/Profile';
 import CreatePost from './Components/pages/CreatePost';
 
-
-
 function App() {
   return (
     <BrowserRouter>
@@ -20,8 +18,6 @@ function App() {
           <Route path='/signup' element={<Signup />} /> 
           <Route path='/profile' element={<Profile />} /> 
           <Route path='/create' element={<CreatePost />} /> 
-         
-
         </Routes>
       </div>
     </BrowserRouter>

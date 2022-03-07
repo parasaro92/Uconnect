@@ -7,7 +7,7 @@ const Navigation = () => {
     <Navbar collapseOnSelect expand="lg" bg = "primary" variant = "dark">
     <Container>
     <Link to="/">
-      <Navbar.Brand>
+      <Navbar.Brand className="logo">
         Uconnect
       </Navbar.Brand>
     </Link>
@@ -15,6 +15,7 @@ const Navigation = () => {
       <Navbar.Collapse id="responsive-navbar-nav">
         <ul>
           <Nav className="">
+            <Link to="/home">Home</Link>
             <Link to="/signin">Signin</Link>
             <Link to="/signup">Signup</Link>
             <Link to="/profile">Profile</Link>

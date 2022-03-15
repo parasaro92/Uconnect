@@ -15,11 +15,24 @@ const Navigation = () => {
       <Navbar.Collapse id="responsive-navbar-nav">
         <ul>
           <Nav className="">
-            <Link to="/home">Home</Link>
-            <Link to="/signin">Signin</Link>
-            <Link to="/signup">Signup</Link>
-            <Link to="/profile">Profile</Link>
-            <Link to="/create">Create Post</Link>
+           <li><Link to="/home">Home</Link></li> 
+            <li><Link to="/signin">Signin</Link></li>
+          <li><Link to="/signup">Signup</Link></li>  
+         <li> <Link to="/profile">Profile</Link></li>  
+          <li><Link to="/create">Create Post</Link></li> 
+          {/* <li>
+            <button className="btn #c62828 red darken-3"
+            onClick={()=>{
+              localStorage.clear()
+              dispatch({type:"CLEAR"})
+
+            }}
+            >
+              Logout
+            </button>
+         </li>   */}
+
+            
           </Nav>
         </ul>
       </Navbar.Collapse>

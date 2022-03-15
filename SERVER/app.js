@@ -10,6 +10,7 @@ connectDB()
 
 require('./models/user')
 require('./models/post')
+require('./models/comment')
 
 app.use(express.json());
 

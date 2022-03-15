@@ -3,8 +3,9 @@ const router = express.Router()
 const mongoose = require('mongoose')
 const requireLogin = require('../middleware/requireLogin')
 const Post = mongoose.model("Post")
+const Comment = mongoose.model("Comment")
 
-router.get('/allpost',(req,res)=>{
+router.get('/allpost',requireLogin,(req,res)=>{
     Post.find()
     .populate('postedBy','_id name')
     .then(posts=>{
@@ -47,7 +48,59 @@ router.post('/createpost',requireLogin,(req,res)=>{
     })
 })
 
+router.post('/comment',requireLogin,async (req,res)=>{
 
+    try {
+
+        const comment = await Comment.create({
+            text:req.body.text,
+            username:req.user.name
+        });
+        res.send(comment);
+      } catch (err) {
+        console.log(err);
+        return res.status(500).send('Server error');
+        
+      }
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+    const comment ={
+        text:req.body.text,
+        postedBy:req.user._id
+    }
+    this.post.findByIdAndUpdate(req.body.postId,{
+        $push:{comments:comment}
+    },
+    {
+        new:true
+    })
+    .populate("comments.postedBy","_id name")
+    .exec((err,result)=>{
+        if(err){
+            return res.status(422).json({error:err})
+        }
+        else{
+            res.json(result)
+        }
+    })
+
+})*/
 
 
 

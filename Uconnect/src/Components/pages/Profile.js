@@ -1,6 +1,19 @@
-import React from 'react'
+import React,{useEffect, useState,useContext} from 'react'
+import { UserContext } from '../../App';
 
 const Profile = () =>{
+    const [pics,setPics]=useState([])
+    const {state,dispatch} = useContext(UserContext)
+    useEffect( ()=>{
+            fetch('/mypost',{
+                headers:{
+                    'Authorization':localStorage.getItem('jwt')
+                }
+            }).then(res=>res.json())
+            .then(result=>{
+                setPics(result.mypost)
+            })
+    },[])
     return(
         <div style={{maxWidth:'900px',margin:'0px auto'}}>
             <div style={{
@@ -15,7 +28,7 @@ const Profile = () =>{
                    />
                    </div>
                     <div style={{fontFamily:'Calibri',marginTop:'20px'}} >
-                        <h2>Veerendra Makena</h2>
+                        <h2>{state?state.name:'loading'}</h2>
                     
                         <div style={{display:'flex',justifyContent:'space-between',width:'108%'}}>
                         <h4>10 Posts</h4>
@@ -27,12 +40,15 @@ const Profile = () =>{
                 
             </div>
             <div className='gallery'>
-            <img className='item' src='https://cdn.pixabay.com/photo/2020/06/14/18/11/the-caucasus-5298803_960_720.jpg'/>
-            <img className='item' src='https://cdn.pixabay.com/photo/2022/01/31/15/18/coffee-6984075_960_720.jpg'/>
-            <img className='item' src='https://cdn.pixabay.com/photo/2020/06/14/18/11/the-caucasus-5298803_960_720.jpg'/>
-            <img className='item' src='https://cdn.pixabay.com/photo/2022/01/31/15/18/coffee-6984075_960_720.jpg'/>
-            <img className='item' src='https://cdn.pixabay.com/photo/2020/06/14/18/11/the-caucasus-5298803_960_720.jpg'/>
-            <img className='item' src='https://cdn.pixabay.com/photo/2022/01/31/15/18/coffee-6984075_960_720.jpg'/>
+            {
+                pics.map(item=>{
+                    return(
+                        <img key={item._id} className='item' src={item.photo} alt={item.title}/>
+                    )
+                }
+                )
+            }
+
             </div>
             </div>
 

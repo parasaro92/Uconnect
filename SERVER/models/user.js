@@ -16,8 +16,8 @@ const userSchema = new mongoose.Schema({
   },
   resetToken: String,
   expireToken: Date,
-  followers: [{type:ObjectId, ref:"User"}],
-  following: [{type:ObjectId, ref:"User"}]
+  followers: [{ type: ObjectId, ref: "User" }],
+  following: [{ type: ObjectId, ref: "User" }],
 });
 
 mongoose.model("User", userSchema);

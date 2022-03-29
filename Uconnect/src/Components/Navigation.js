@@ -8,7 +8,7 @@ const Navigation = () => {
   const history = useNavigate()
   const renderList = () =>{
     if (state){
-            return [<li key={'Home'}><Link to="/">Home</Link></li>,            
+            return [<li key={'Home'}><Link to="/home">Home</Link></li>,            
             <li key={'Profile'}><Link to="/profile">Profile</Link></li>,
             <li key={'createPost'}><Link to="/create">Create Post</Link></li>,
             <li key={'logOut'}><button className="btn waves-effect waves-light #64b5f6 blue lighten-2" 
@@ -35,24 +35,7 @@ const Navigation = () => {
       <Navbar.Collapse id="responsive-navbar-nav">
         <ul>
           <Nav className="">
-           <li><Link to="/">Home</Link></li> 
-            <li><Link to="/signin">Signin</Link></li>
-          <li><Link to="/signup">Signup</Link></li>  
-         <li> <Link to="/profile">Profile</Link></li>  
-          <li><Link to="/create">Create Post</Link></li> 
-          {/* <li>
-            <button className="btn #c62828 red darken-3"
-            onClick={()=>{
-              localStorage.clear()
-              dispatch({type:"CLEAR"})
-
-            }}
-            >
-              Logout
-            </button>
-         </li>   */}
-
-            
+            {renderList()}
           </Nav>
         </ul>
       </Navbar.Collapse>

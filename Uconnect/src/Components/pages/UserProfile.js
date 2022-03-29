@@ -1,20 +1,26 @@
 import React,{useEffect, useState,useContext} from 'react'
 import { UserContext } from '../../App';
+import { useParams } from 'react-router-dom';
 
-const Profile = () =>{
-    const [pics,setPics]=useState([])
+const UserProfile = () =>{
+    const [userProfile,setProfile]=useState(null)
     const {state,dispatch} = useContext(UserContext)
+    const {userid} = useParams()
+    console.log(userid)
     useEffect( ()=>{
-            fetch('/mypost',{
+            fetch(`/user/${userid}`,{
                 headers:{
                     'Authorization':localStorage.getItem('jwt')
                 }
             }).then(res=>res.json())
             .then(result=>{
-                setPics(result.mypost)
+                console.log(result)
+                setProfile(result)
             })
     },[])
     return(
+        <>
+        {userProfile? 
         <div style={{maxWidth:'900px',margin:'0px auto'}}>
             <div style={{
                 display:'flex',
@@ -28,10 +34,10 @@ const Profile = () =>{
                    />
                    </div>
                     <div style={{fontFamily:'Calibri',marginTop:'20px'}} >
-                        <h2>{state?state.name:'loading'}</h2>
-                    
+                        <h2>{userProfile.user.name}</h2>
+                        <h5>{userProfile.user.email}</h5>
                         <div style={{display:'flex',justifyContent:'space-between',width:'108%'}}>
-                        <h4>10 Posts</h4>
+                        <h4>{userProfile.posts.length}</h4>
                         <h4>10 Followers</h4>
                         <h4>10 Following</h4>
                         </div>
@@ -41,7 +47,7 @@ const Profile = () =>{
             </div>
             <div className='gallery'>
             {
-                pics.map(item=>{
+                userProfile.posts.map(item=>{
                     return(
                         <img key={item._id} className='item' src={item.photo} alt={item.title}/>
                     )
@@ -51,8 +57,9 @@ const Profile = () =>{
 
             </div>
             </div>
-
+            : <h2>Loading...!</h2>}
+            </>
     );
 };
 
-export default Profile;
+export default UserProfile;

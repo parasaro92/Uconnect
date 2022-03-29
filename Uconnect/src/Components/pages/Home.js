@@ -1,44 +1,154 @@
-import React from 'react';
+import React,{useContext, useEffect, useState} from 'react';
+import { Link } from 'react-router-dom';
+import { UserContext } from '../../App';
 
 const Home = () => {
+    const [data,setData]=useState([])
+    const {state,dispatch} = useContext(UserContext)
+    useEffect(()=>{
+            fetch('/allpost',{
+                headers:{
+                    'Authorization':localStorage.getItem('jwt')
+                }
+
+            }).then(res=>res.json())
+            .then(result=>{
+                console.log(result)
+                setData(result.posts)
+            })
+    },[])
+
+    const likePost = (id) =>{
+        fetch('/like',{
+            method:'put',
+            headers:{
+                "Content-Type":"application/json",
+                'Authorization':localStorage.getItem('jwt')
+            },
+            body:JSON.stringify({
+                postId:id
+            })
+        }).then(res=>res.json())
+        .then(result=>{
+            console.log(result)
+            const newData = data.map(item=>{
+                if(item._id===result._id){
+                    return result
+                }
+                else{
+                    return item
+                }
+            })
+            setData(newData)
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
+    const unlikePost = (id) =>{
+        fetch('/unlike',{
+            method:'put',
+            headers:{
+                "Content-Type":"application/json",
+                'Authorization':localStorage.getItem('jwt')
+            },
+            body:JSON.stringify({
+                postId:id
+            })
+        }).then(res=>res.json())
+        .then(result=>{
+            console.log(result)
+            const newData = data.map(item=>{
+                if(item._id===result._id){
+                    return result
+                }
+                else{
+                    return item
+                }
+            })
+            setData(newData)
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
+    const makeComment = (text,postId)=>{
+        fetch('/comment',{
+            method:'put',
+            headers:{
+                "Content-Type":"application/json",
+                'Authorization': localStorage.getItem('jwt')
+            },
+            body:JSON.stringify({   
+                text:text,            
+                postId:postId,
+                
+            })
+        }).then(res=>res.json())
+        //.then(text=>console.log(text))
+        .then(result=>{
+            console.log(result)
+            const newData = data.map(item=>{
+                if(item._id===result._id){
+                    return result
+                }
+                else{
+                    return item
+                }
+            })
+            setData(newData)
+    }).catch(err=>{
+        console.log(err)
+    })
+    } 
+    const deletePost = (postId) =>{
+        fetch(`/deletepost/${postId}`,{
+            method:'delete',
+            headers:{
+                'Authorization':localStorage.getItem('jwt')
+            }
+        }).then(res=>res.json())
+        .then(result=>{
+            console.log(result)
+        })
+    }
     return (
         <div className="home">
-            <div className="card home-card">
-                <h5>Princy</h5>
-                <div className="card-image">
-                    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bW91bnRhaW5zfGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=500&q=60" />
+        {
+            data.map(item=>{
+                return(
+                <div className="card home-card" key={item._id}> 
+                    <h5><Link to={item.postedBy._id !== state._id?"/profile/"+item.postedBy._id:"/profile"}>{item.postedBy.name}</Link></h5>
+                    <div className="card-image">
+                        <img src={item.photo} />
+                    </div>
+                    <div className='card-content'>
+                        <i className="material-icons" style={{ color: "red" }}>favorite</i>
+                        {item.likes.includes(state._id)?
+                            <i className="material-icons" style={{ color: "blue" }} onClick={()=>{unlikePost(item._id)}}>thumb_down</i>
+                            :<i className="material-icons" style={{ color: "blue" }} onClick={()=>{likePost(item._id)}}>thumb_up</i>
+                        }
+                        <h6>{item.likes.length} likes</h6>
+                        <h6>{item.title}</h6>
+                        <p>{item.body} </p>
+                        {
+                            item.comments.map(record=>{
+                                return(
+                                    <h6 key={record._id}><span style={{fontWeight:'500'}}>{record.postedBy.name}</span> {record.text}</h6>
+                                )
+                            })
+                        }
+                        <form onSubmit={(e)=>{
+                            e.preventDefault()
+                            makeComment(e.target[0].value,item._id)
+                            //console.log(e.target[0].value)
+                        }}>
+                        <input type="text" placeholder="add a comment" />
+                        </form>
+                    </div>
                 </div>
-                <div className='card-content'>
-                    <i className="material-icons" style={{ color: "red" }}>favorite</i>
-                    <h6>India-Himachal Pradesh</h6>
-                    <p>If it is natural, picturesque beauty and a serenity far away from the cacophony of city life </p>
-                    <input type="text" placeholder="add a comment" />
-                </div>
-            </div>
-            <div className="card home-card">
-                <h5>Sidharth</h5>
-                <div className="card-image">
-                    <img src="https://media.istockphoto.com/photos/futuristic-modern-empty-stage-reflective-dark-room-with-glowing-neon-picture-id1296175665?k=20&m=1296175665&s=612x612&w=0&h=kjMdfyJsAPyfRKMtEDqrI2wQQucM-yaKTPZB7oZK9fc=" />
-                </div>
-                <div className='card-content'>
-                    <i className="material-icons" style={{ color: "red" }}>favorite</i>
-                    <h6>Elevate Your Dance.</h6>
-                    <p>Its great place near our college to show your moves. </p>
-                    <input type="text" placeholder="add a comment" />
-                </div>
-            </div>
-            <div className="card home-card">
-                <h5>Priyanshu</h5>
-                <div className="card-image">
-                    <img src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG5hdHVyZXxlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60" />
-                </div>
-                <div className='card-content'>
-                    <i className="material-icons" style={{ color: "red" }}>favorite</i>
-                    <h6>Sunset view </h6>
-                    <p>This is amazing!!!!!</p>
-                    <input type="text" placeholder="add a comment" />
-                </div>
-            </div>
+                )
+            })
+        }
+           
         </div>
     )
 }

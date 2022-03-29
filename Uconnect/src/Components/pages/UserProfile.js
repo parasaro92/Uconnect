@@ -14,10 +14,58 @@ const UserProfile = () =>{
                 }
             }).then(res=>res.json())
             .then(result=>{
-                console.log(result)
                 setProfile(result)
             })
     },[])
+
+		const followUser = () => {
+				fetch("/follow", {
+					method: "put",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: "Bearer " + localStorage.getItem("jwt"),
+					},
+					body: JSON.stringify({
+						followId: userid,
+					}),
+				}).then(res => res.json())
+				.then(data => {
+					console.log(data)
+					dispatch({type: "UPDATE", payload: {following:data.following,followers: data.followers}})
+					localStorage.setItem("user", JSON.stringify(data))
+					setProfile((prevState) => {
+						return {
+							...prevState,
+							user: data
+						}
+					})
+				})
+				// const userFollowerResult = await followUser.json();
+				// console.log(userFollowerResult);
+				// dispatch({
+				// 	type: "UPDATE",
+				// 	payload: {
+				// 		following: userFollowerResult.following,
+				// 		followers: userFollowerResult.followers,
+				// 	},
+				// });
+				// localStorage.setItem("user", JSON.stringify(userFollowerResult));
+				// setProfile((prevState) => {
+				// 	return {
+				// 		...prevState,
+				// 		findUser: {
+				// 			...prevState.findUser,
+				// 			followers: [
+				// 				...prevState.findUser.followers,
+				// 				userFollowerResult._id,
+				// 			],
+				// 		},
+				// 	};
+				// });
+				// setShowFollow(false);
+			// }
+		};
+
     return(
         <>
         {userProfile? 
@@ -38,12 +86,11 @@ const UserProfile = () =>{
                         <h5>{userProfile.user.email}</h5>
                         <div style={{display:'flex',justifyContent:'space-between',width:'108%'}}>
                         <h4>{userProfile.posts.length}</h4>
-                        <h4>10 Followers</h4>
-                        <h4>10 Following</h4>
+                        <h4>{userProfile.user.followers.length}</h4>
+                        <h4>{userProfile.user.following.length}</h4>
                         </div>
+												<button className="btn waves-effect waves-light #64b5f6 blue lighten-2" onClick={()=>followUser()}>Follow</button>
                     </div>
-                    
-                
             </div>
             <div className='gallery'>
             {

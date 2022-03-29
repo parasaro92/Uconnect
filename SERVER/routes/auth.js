@@ -8,8 +8,7 @@ const requireLogin = require('../middleware/requireLogin')
 const router = express.Router()
 
 router.get('/protected',requireLogin,(req,res)=>{
-        res.send('hello user')
-
+    res.send('hello user')
 })
 
 router.post('/Signup',(req,res)=>{

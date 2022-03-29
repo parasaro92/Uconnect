@@ -102,6 +102,7 @@ router.post("/reset-password", (req, res) => {
       console.log(err);
     }
     const token = buffer.toString("hex");
+    console.log('fadsfadfda', token);
     User.findOne({ email: req.body.email }).then((user) => {
       if (!user) {
         return res

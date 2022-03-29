@@ -85,9 +85,7 @@ const Home = () => {
         }).then(res => {
             console.log(res)
             res.json()
-        })
-            //.then(text=>console.log(text))
-            .then(result => {
+        }).then(result => {
                 console.log(result)
                 const newData = data.map(item => {
                     if (item._id === result._id) {

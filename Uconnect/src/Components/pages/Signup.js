@@ -45,7 +45,7 @@ const Signup = () => {
         <div className="mycard">
 			<div className="card auth-card input-field">
 				<h2>Uconnect</h2>
-				<input type="text" className="form-control" placeholder="Name" value={name} onChange={(e)=>setName(e.target.value)}/>
+				<input type="text" className="form-control" placeholder="Name" value={name} onChange={(e)=>setName(e.target.value)}  />
 				<input type="text" className="form-control" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
 				<input type="password" className="form-control" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
 				<div className="file-field input-field">

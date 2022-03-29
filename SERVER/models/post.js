@@ -9,6 +9,7 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    likes:[{type:ObjectId,ref:"User"}],
     photo: {
         type: String,
         required: true
@@ -22,7 +23,7 @@ const postSchema = new mongoose.Schema({
         type: ObjectId,
         ref: "User"
     }
-})
+},{timestamps:true})
 
 mongoose.model("Post",postSchema)
 

@@ -1,29 +1,27 @@
 const express = require('express')
 const app = express()
-const PORT = 5000
-const mongoose = require('mongoose') 
-const {MONGOURI} = require('./keys')
+const mongoose = require('mongoose')
+const connectDB = require('./config/connectDB')
+const dotenv = require('dotenv').config()
 
 
 
-
-mongoose.connect(MONGOURI) 
-mongoose.connection.on('connected',()=>{
-    console.log("connected to mongo yeahh")
-})
-
-mongoose.connection.on('error',(err)=>{
-    console.log("error connecting",err)
-})
+connectDB()
 
 require('./models/user')
 require('./models/post')
+require('./models/user')
 
-app.use(express.json())
+app.use(express.json());
+
 app.use(require('./routes/auth'))
 app.use(require('./routes/post'))
+app.use(require('./routes/user'))
 
 
-app.listen(PORT,() =>{
-    console.log("server is running on port number 5000",PORT)
-})
+
+
+const PORT = process.env.PORT | 5000;
+app.listen(PORT, () => {
+  console.log('server started');
+});

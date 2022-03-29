@@ -8,7 +8,7 @@ const Navigation = () => {
   const history = useNavigate()
   const renderList = () =>{
     if (state){
-            return [<li key={'Home'}><Link to="/home">Home</Link></li>,            
+            return [<li key={'Home'}><Link to="/">Home</Link></li>,            
             <li key={'Profile'}><Link to="/profile">Profile</Link></li>,
             <li key={'createPost'}><Link to="/create">Create Post</Link></li>,
             <li key={'logOut'}><button className="btn waves-effect waves-light #64b5f6 blue lighten-2" 

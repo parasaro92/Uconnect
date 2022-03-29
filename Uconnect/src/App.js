@@ -6,6 +6,8 @@ import Login from "./Components/pages/SignIn";
 import Signup from "./Components/pages/Signup";
 import Profile from "./Components/pages/Profile";
 import CreatePost from "./Components/pages/CreatePost";
+import Reset from "./Components/pages/Reset";
+import Newpassword from "./Components/pages/Newpassword";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/create" element={<CreatePost />} />
+          <Route exact path="/reset" element={<Reset />} />
+          <Route path="/reset/:token" element={<Newpassword />} />
         </Routes>
       </div>
     </BrowserRouter>

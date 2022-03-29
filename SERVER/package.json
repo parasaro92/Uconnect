@@ -16,12 +16,8 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
-<<<<<<< HEAD
-    "mongoose": "^6.2.4"
-=======
     "mongoose": "^6.2.4",
     "nodemailer": "^6.7.3",
     "nodemailer-sendgrid-transport": "^0.2.0"
->>>>>>> 79813f62cc073776561ebd590c5a6bff1874b288
   }
 }

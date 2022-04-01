@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { Link,useNavigate } from 'react-router-dom';
 
 import M from 'materialize-css';
@@ -10,8 +10,32 @@ const Signup = () => {
 	const [email,setEmail] = useState("")
 	const [password,setPassword] = useState("")
 	const [image,setImage] = useState("")
-	const [url,setUrl] = useState("")
-	const PostData =()=>{
+	const [url,setUrl] = useState(null)
+
+	useEffect(()=>{
+		if(url){
+			uploadFields()
+		}
+	},[url])
+	const uploadPic =()=>{
+		const data = new FormData()
+        data.append('file',image)
+        data.append('upload_preset','Uconnect')
+        data.append('cloud_name','imgdb22')
+
+        fetch('https://api.cloudinary.com/v1_1/imgdb22/image/upload',{
+            method:'post',
+            body: data
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            setUrl(data.url)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+	}
+	const uploadFields =()=>{
 		if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
 			return console.log('Invalid email')
 		}
@@ -24,7 +48,8 @@ const Signup = () => {
 				body:JSON.stringify({
 					name,
 					email,
-					password
+					password,
+					pic:url 
 				})
 		}).then(res=>res.json())
 		.then(data=>{
@@ -39,6 +64,14 @@ const Signup = () => {
 			}
 		}).catch(err=>{console.log(err)})
 
+
+	}
+	const PostData =()=>{
+		if(image){
+			uploadPic()
+		}else{
+			uploadFields()
+		}		
 	}
 
     return (

@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  pic: {
+    type:String,
+    default:'https://res.cloudinary.com/imgdb22/image/upload/v1648764856/mystery_ep5wqp.jpg'
+  },
   resetToken: String,
   expireToken: Date,
   followers: [{ type: ObjectId, ref: "User" }],

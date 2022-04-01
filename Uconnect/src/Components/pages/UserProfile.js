@@ -78,7 +78,7 @@ const UserProfile = () =>{
             }}>
                     <div style={{fontFamily:'Calibri',marginLeft:'50px'}}>
                     <img style={{width:'160px',height:'160px',borderRadius:'80px'}}
-                    src='https://www.dailycameranews.com/wp-content/uploads/2015/06/Sony-RX100-IV-Sample-Images.jpg'
+                    src={userProfile.user.pic}
                    />
                    </div>
                     <div style={{fontFamily:'Calibri',marginTop:'20px'}} >

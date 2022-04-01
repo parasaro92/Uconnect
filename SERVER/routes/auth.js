@@ -26,7 +26,7 @@ router.get("/protected", requireLogin, (req, res) => {
 });
 
 router.post("/Signup", (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password,pic } = req.body;
   if (!email || !password || !name) {
     return res.status(422).json({ Error: " Please add all the fields" });
   }
@@ -43,6 +43,7 @@ router.post("/Signup", (req, res) => {
           name,
           email,
           password: hashedpassword,
+          pic:pic
         });
 
         user

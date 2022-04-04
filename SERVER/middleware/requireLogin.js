@@ -13,11 +13,12 @@ module.exports = (req,res,next)=>{
         if(err){
             return res.status(401).json({error:'You must be logged in'})
         }
+        console.log('adfaddas--------', payload)
         const{_id} = payload
         User.findById(_id).then(userData=>{
             req.user=userData
-            next()
         })
+        next()
     })
 
 }

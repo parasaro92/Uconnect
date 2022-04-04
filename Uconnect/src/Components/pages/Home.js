@@ -8,7 +8,7 @@ const Home = () => {
     useEffect(() => {
         fetch('/allpost', {
             headers: {
-                'Authorization': localStorage.getItem('jwt')
+                'Authorization': "Bearer " + localStorage.getItem('jwt')
             }
 
         }).then(res => res.json())
@@ -23,7 +23,7 @@ const Home = () => {
             method: 'put',
             headers: {
                 "Content-Type": "application/json",
-                'Authorization': localStorage.getItem('jwt')
+                'Authorization': "Bearer " + localStorage.getItem('jwt')
             },
             body: JSON.stringify({
                 postId: id
@@ -40,6 +40,7 @@ const Home = () => {
                     }
                 })
                 setData(newData)
+                console.log('hme like----', data)
             }).catch(err => {
                 console.log(err)
             })
@@ -49,7 +50,7 @@ const Home = () => {
             method: 'put',
             headers: {
                 "Content-Type": "application/json",
-                'Authorization': localStorage.getItem('jwt')
+                'Authorization': "Bearer " + localStorage.getItem('jwt')
             },
             body: JSON.stringify({
                 postId: id
@@ -75,7 +76,7 @@ const Home = () => {
             method: 'put',
             headers: {
                 "Content-Type": "application/json",
-                'Authorization': localStorage.getItem('jwt')
+                'Authorization': "Bearer " + localStorage.getItem('jwt')
             },
             body: JSON.stringify({
                 text: text,
@@ -96,6 +97,7 @@ const Home = () => {
                     }
                 })
                 setData(newData)
+                console.log('hme like', data)
             }).catch(err => {
                 console.log(err)
             })

@@ -40,7 +40,7 @@ const fetchUsers = (query)=>{
     headers:{
       "Content-Type":"application/json"
     },
-    bosy:JSON.stringify({
+    body:JSON.stringify({
       query
     })
   }).then(res=>res.json())
@@ -79,17 +79,15 @@ const fetchUsers = (query)=>{
       onChange={(e)=>fetchUsers(e.target.value)}/>
         <ul className="collection">
           {userDetails.map(item=>{
-            return   <li className="collection-item">{item.email}</li>
+            return  <Link to={item._id !== state._id  ? "/profile/"+item._id : '/profile'} onClick={()=>{
+              M.Modal.getInstance(searchModal.current).close()
+              setSearch('')
+            }}><li className="collection-item">{item.email}</li> </Link>
           })}
-            
-            
-              
-            
-            
       </ul>
     </div>
     <div className="modal-footer">
-      <button  className="modal-close waves-effect waves-green btn-flat" onClick={()=>setSearch('')}>close</button>
+      <button  className="modal-close waves-effect waves-green btn-flat" onClick={()=>setSearch('')}>Agree</button>
     </div>
   </div>
           

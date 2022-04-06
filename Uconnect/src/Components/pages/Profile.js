@@ -67,16 +67,9 @@ const Profile = () =>{
             }}>
                     <div style={{fontFamily:'Calibri',marginLeft:'50px'}}>
                     <img style={{width:'160px',height:'160px',borderRadius:'80px'}}
-<<<<<<< HEAD
                      src={state?state.pic:"loading"}
                    />
                                    <div className="file-field input-field">
-=======
-                    src={state?state.pic:"loading"}
-                   />
- 
-                <div className="file-field input-field">
->>>>>>> 071d2c5f25be30673875830668ac855356cbd55b
                 <div className="btn #64b5f6 blue darken-1">
                     <span>Update Pic</span>
                     <input type="file" onChange={(e)=>updatePhoto(e.target.files[0])}/>

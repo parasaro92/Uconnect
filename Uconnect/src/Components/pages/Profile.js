@@ -67,10 +67,9 @@ const Profile = () =>{
             }}>
                     <div style={{fontFamily:'Calibri',marginLeft:'50px'}}>
                     <img style={{width:'160px',height:'160px',borderRadius:'80px'}}
-                    src={state?state.pic:"loading"}
+                     src={state?state.pic:"loading"}
                    />
- 
-                <div className="file-field input-field">
+                                   <div className="file-field input-field">
                 <div className="btn #64b5f6 blue darken-1">
                     <span>Update Pic</span>
                     <input type="file" onChange={(e)=>updatePhoto(e.target.files[0])}/>
@@ -82,9 +81,9 @@ const Profile = () =>{
                    </div>
                     <div style={{fontFamily:'Calibri',marginTop:'20px'}} >
                         <h2>{state?state.name:'loading'}</h2>
-                    
+                        
                         <div style={{display:'flex',justifyContent:'space-between',width:'108%'}}>
-                        <h4>10 Posts</h4>
+                        <h4>{pics.length} Posts</h4>
                         <h4>10 Followers</h4>
                         <h4>10 Following</h4>
                         </div>
@@ -96,7 +95,9 @@ const Profile = () =>{
             {
                 pics.map(item=>{
                     return(
+                       
                         <img key={item._id} className='item' src={item.photo} alt={item.title}/>
+                        
                     )
                 }
                 )

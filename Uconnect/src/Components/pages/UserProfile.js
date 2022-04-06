@@ -78,7 +78,7 @@ const UserProfile = () =>{
             }}>
                     <div style={{fontFamily:'Calibri',marginLeft:'50px'}}>
                     <img style={{width:'160px',height:'160px',borderRadius:'80px'}}
-                    src='https://www.dailycameranews.com/wp-content/uploads/2015/06/Sony-RX100-IV-Sample-Images.jpg'
+                    src={userProfile.user.pic}
                    />
                    </div>
                     <div style={{fontFamily:'Calibri',marginTop:'20px'}} >
@@ -87,7 +87,7 @@ const UserProfile = () =>{
                         <div style={{display:'flex',justifyContent:'space-between',width:'108%'}}>
                         <h4>{userProfile.posts.length}</h4>
                         <h4>{userProfile.user.followers.length}</h4>
-                        <h4>{userProfile.user.following.length}</h4>
+                        <h4>{userProfile.user.following ? userProfile.user.following.length : ''}</h4>
                         </div>
 												<button className="btn waves-effect waves-light #64b5f6 blue lighten-2" onClick={()=>followUser()}>Follow</button>
                     </div>

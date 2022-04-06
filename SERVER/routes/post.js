@@ -81,7 +81,7 @@ router.put('/unlike',requireLogin,(req,res)=>{
 router.put('/comment',requireLogin,async (req,res)=>{   
     const comment ={
         text:req.body.text,
-        postedBy:req.user._id
+        postedBy:req.user.name
     }
     Post.findByIdAndUpdate(req.body.postId,{
         $push:{comments:comment}
@@ -89,12 +89,15 @@ router.put('/comment',requireLogin,async (req,res)=>{
     {
         new:true
     })
-    //
+    .populate("comments.postedBy", "name")
+    .populate("postedBy", "name")
+
     .exec((err,result)=>{
         if(err){
             return res.status(422).json({error:err})
         }
         else{
+           
             res.json(result)
         }
     })

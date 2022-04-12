@@ -69,7 +69,7 @@ const Navigation = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        query,
+        query
       })
         .then((res) => res.json())
         .then((results) => {

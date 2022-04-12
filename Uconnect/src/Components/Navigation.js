@@ -68,14 +68,14 @@ const Navigation = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      bosy: JSON.stringify({
+      body: JSON.stringify({
         query,
-      }),
-    })
-      .then((res) => res.json())
-      .then((results) => {
-        setUserDetails(results.user);
-      });
+      })
+        .then((res) => res.json())
+        .then((results) => {
+          setUserDetails(results.user);
+        }),
+    });
   };
 
   return (

@@ -4,14 +4,13 @@ import { useParams } from "react-router-dom";
 
 const UserProfile = () => {
   const [userProfile, setProfile] = useState(null);
-  const [showfollow, setShowFollow] = useState(true);
   const { state, dispatch } = useContext(UserContext);
   const { userid } = useParams();
   console.log(userid);
   useEffect(() => {
     fetch(`/user/${userid}`, {
       headers: {
-        Authorization: "Bearer" + localStorage.getItem("jwt"),
+        Authorization: localStorage.getItem("jwt"),
       },
     })
       .then((res) => res.json())
@@ -42,47 +41,34 @@ const UserProfile = () => {
         setProfile((prevState) => {
           return {
             ...prevState,
-            user: {
-              ...prevState.user,
-              followers: [...prevState.user.followers, data._id],
-            },
+            user: data,
           };
         });
-        setShowFollow(false);
       });
-  };
-  const unfollowUser = () => {
-    fetch("/unfollow", {
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
-      body: JSON.stringify({
-        unfollowId: userid,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch({
-          type: "UPDATE",
-          payload: { following: data.following, followers: data.followers },
-        });
-        localStorage.setItem("user", JSON.stringify(data));
-        setProfile((prevState) => {
-          const newFollower = prevState.user.followers.filter(
-            (item) => item != data._id
-          );
-          return {
-            ...prevState,
-            user: {
-              ...prevState.user,
-              followers: newFollower,
-            },
-          };
-        });
-        setShowFollow(true);
-      });
+    // const userFollowerResult = await followUser.json();
+    // console.log(userFollowerResult);
+    // dispatch({
+    // 	type: "UPDATE",
+    // 	payload: {
+    // 		following: userFollowerResult.following,
+    // 		followers: userFollowerResult.followers,
+    // 	},
+    // });
+    // localStorage.setItem("user", JSON.stringify(userFollowerResult));
+    // setProfile((prevState) => {
+    // 	return {
+    // 		...prevState,
+    // 		findUser: {
+    // 			...prevState.findUser,
+    // 			followers: [
+    // 				...prevState.findUser.followers,
+    // 				userFollowerResult._id,
+    // 			],
+    // 		},
+    // 	};
+    // });
+    // setShowFollow(false);
+    // }
   };
 
   return (
@@ -104,7 +90,7 @@ const UserProfile = () => {
                   height: "160px",
                   borderRadius: "80px",
                 }}
-                src="https://www.dailycameranews.com/wp-content/uploads/2015/06/Sony-RX100-IV-Sample-Images.jpg"
+                src={userProfile.user.pic}
               />
             </div>
             <div style={{ fontFamily: "Calibri", marginTop: "20px" }}>
@@ -117,25 +103,20 @@ const UserProfile = () => {
                   width: "108%",
                 }}
               >
-                <h4>{userProfile.posts.length} posts</h4>
-                <h4>{userProfile.user.followers.length}followers</h4>
-                <h4>{userProfile.user.following.length}following</h4>
+                <h4>{userProfile.posts.length}</h4>
+                <h4>{userProfile.user.followers.length}</h4>
+                <h4>
+                  {userProfile.user.following
+                    ? userProfile.user.following.length
+                    : ""}
+                </h4>
               </div>
-              {showfollow ? (
-                <button
-                  className="btn waves-effect waves-light #64b5f6 blue lighten-2"
-                  onClick={() => followUser()}
-                >
-                  Follow
-                </button>
-              ) : (
-                <button
-                  className="btn waves-effect waves-light #64b5f6 blue lighten-2"
-                  onClick={() => unfollowUser()}
-                >
-                  unFollow
-                </button>
-              )}
+              <button
+                className="btn waves-effect waves-light #64b5f6 blue lighten-2"
+                onClick={() => followUser()}
+              >
+                Follow
+              </button>
             </div>
           </div>
           <div className="gallery">

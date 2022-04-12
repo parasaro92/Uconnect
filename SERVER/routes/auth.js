@@ -26,7 +26,7 @@ router.get("/protected", requireLogin, (req, res) => {
 });
 
 router.post("/Signup", (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, pic } = req.body;
   if (!email || !password || !name) {
     return res.status(422).json({ Error: " Please add all the fields" });
   }
@@ -43,6 +43,7 @@ router.post("/Signup", (req, res) => {
           name,
           email,
           password: hashedpassword,
+          pic: pic,
         });
 
         user
@@ -66,7 +67,7 @@ router.post("/Signup", (req, res) => {
   });
 });
 
-router.post("/Signin", (req, res) => {
+router.post("/signin", (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(422).json({ error: "Please add email or password" });
@@ -84,8 +85,11 @@ router.post("/Signin", (req, res) => {
             { _id: savedUser._id },
             process.env.JWT_SECRET
           );
-          const { _id, name, email, followers, following } = savedUser;
-          res.json({ token, user: { _id, name, email, followers, following } });
+          const { _id, name, email, followers, following, pic } = savedUser;
+          res.json({
+            token,
+            user: { _id, name, email, followers, following, pic },
+          });
         } else {
           return res.status(422).json({ error: "Invalid email or password" });
         }
@@ -102,6 +106,7 @@ router.post("/reset-password", (req, res) => {
       console.log(err);
     }
     const token = buffer.toString("hex");
+    console.log("fadsfadfda", token);
     User.findOne({ email: req.body.email }).then((user) => {
       if (!user) {
         return res

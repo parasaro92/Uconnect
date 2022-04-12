@@ -52,6 +52,8 @@ ul {
 
 .navbar-nav {
   float: left;
+  display: flex;
+  align-items: center;
 }
 
 .navbar-nav a {

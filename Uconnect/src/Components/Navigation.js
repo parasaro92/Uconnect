@@ -19,7 +19,7 @@ const Navigation = () => {
           <i
             data-target="modal1"
             className="large material-icons modal-trigger"
-            style={{ color: "white" }}
+            style={{ color: "white", cursor: "pointer" }}
           >
             search
           </i>

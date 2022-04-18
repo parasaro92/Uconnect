@@ -108,7 +108,12 @@ const Navigation = () => {
           />
           <ul className="collection">
             {userDetails.map((item) => {
-              return <li className="collection-item">{item.email}</li>;
+              return <Link to={item._id == state.id ? "/profile/" + item._id : '/profile' } onClick={() => {
+                M.Modal.getInstance(searchModal.current).close()
+                setSearch('')
+              }}>
+                <li className="collection-item">{item.email}</li>
+              </Link>
             })}
           </ul>
         </div>

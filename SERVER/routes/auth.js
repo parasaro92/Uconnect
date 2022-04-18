@@ -15,8 +15,7 @@ const sendgridTransport = require(`nodemailer-sendgrid-transport`);
 const transporter = nodemailer.createTransport(
   sendgridTransport({
     auth: {
-      api_key:
-        "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",
+      api_key: process.env.SENDGRID_API
     },
   })
 );
@@ -122,7 +121,7 @@ router.post("/reset-password", (req, res) => {
           subject: "Password Reset",
           html: `<p>
           You requested for password reset </p>
-          <h5> Click on this <a href="http://localhost:3000/reset/${token}>link</a> to reset the password</h5>`,
+          <h5> Click on this <a href="${process.env.EMAIL}/reset/${token}>link</a> to reset the password</h5>`,
         });
         res.json({ message: "Check your email" });
       });

@@ -163,13 +163,13 @@ const Home = () => {
               <h6>{item.likes.length} likes</h6>
               <h6>{item.title}</h6>
               <p>{item.body} </p>
-              {/* {
-                            item.comments.map(record=>{
-                                return(
-                                    <h6 key={record._id}>{record.postedBy}:{record.text}</h6>
-                                )
-                            })
-                        } */}
+              {
+                item.comments.map(record => {
+                  return (
+                    <h6 key={record._id}>{record.postedBy}:{record.text}</h6>
+                  )
+                })
+              }
               <form
                 onSubmit={(e) => {
                   e.preventDefault();

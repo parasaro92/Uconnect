@@ -121,7 +121,7 @@ const Home = () => {
       {data.map((item) => {
         return (
           <div className="card home-card" key={item._id}>
-            <h5>
+            <h5 className="post_name">
               <Link
                 to={
                   item.postedBy._id !== state._id
@@ -131,7 +131,7 @@ const Home = () => {
               >
                 {item.postedBy.name}
               </Link>
-              {item.postedBy._id == state._id ?
+              {item.postedBy._id === state._id ?
                 <i className="material-icons" style={{ color: "red" }} onClick={() => { deletePost(item._id); }}>
                   delete
                 </i> : ''}

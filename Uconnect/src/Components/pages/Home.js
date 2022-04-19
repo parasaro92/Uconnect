@@ -131,6 +131,10 @@ const Home = () => {
               >
                 {item.postedBy.name}
               </Link>
+              {item.postedBy._id == state._id ?
+                <i className="material-icons" style={{ color: "red" }} onClick={() => { deletePost(item._id); }}>
+                  delete
+                </i> : ''}
             </h5>
             <div className="card-image">
               <img src={item.photo} />

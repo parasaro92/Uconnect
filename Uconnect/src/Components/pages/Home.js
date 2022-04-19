@@ -84,10 +84,7 @@ const Home = () => {
         postId: postId,
       }),
     })
-      .then((res) => {
-        console.log(res);
-        res.json();
-      })
+      .then((res) =>res.json())
       //.then(text=>console.log(text))
       .then((result) => {
         console.log(result);
